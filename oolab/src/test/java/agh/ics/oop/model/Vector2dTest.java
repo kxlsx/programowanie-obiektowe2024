@@ -1,7 +1,9 @@
-import agh.ics.oop.model.Vector2d;
+package agh.ics.oop.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Vector2dTest {
 
@@ -35,6 +37,14 @@ public class Vector2dTest {
     @Test
     public void lowerLeft() {
         assertEquals(posneg.lowerLeft(negpos), new Vector2d(-3, -2));
+    }
+
+    @Test
+    public void follows() {
+        assertTrue(pos.follows(neg));
+        assertTrue(pos.follows(posneg));
+        assertTrue(pos.follows(negpos));
+        assertFalse(neg.follows(pos));
     }
 
     @Test
