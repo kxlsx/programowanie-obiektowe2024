@@ -6,18 +6,23 @@ import java.util.List;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.WorldMap;
 
 public class Simulation {
+    WorldMap map;
     List<Animal> animals;
     List<MoveDirection> moves;
     int moveIndex;
 
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves) {
+    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap map) {
+        this.map = map;
         this.moves = moves;
 
         animals = new ArrayList<Animal>();
         for(Vector2d pos : positions) {
-            animals.add(new Animal(pos));
+            Animal a = new Animal(pos);
+            animals.add(a);
+            map.place(a);
         }
         this.moveIndex = 0;
     }
@@ -25,8 +30,8 @@ public class Simulation {
     public void run() {
         while(true) {
             try {
-                Animal a = move_next();
-                System.out.println("Zwierzę " + previousAnimalIndex() + ": " + a);
+                move_next();
+                System.out.println(map);
             } catch(IndexOutOfBoundsException e) {
                 break;
             }
@@ -39,7 +44,7 @@ public class Simulation {
         }
 
         Animal a = animals.get(currentAnimalIndex());
-        a.move(moves.get(moveIndex));
+        map.move(a, moves.get(moveIndex));
         moveIndex++;
         return a;
     }
