@@ -8,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 public class SimulationTest {
-    WorldMap map = new RectangularMap(4, 4);
+    WorldMap<Animal, Vector2d> map = new RectangularMap(4, 4);
 
     List<MoveDirection> moves = OptionsParser.parse(new String[]{"f", "f", "f", "r", "b", "l", "l", "l", "l"});
-    List<Vector2d> animalsSingle = List.of(new Vector2d(2,2));
-    List<Vector2d> animalsMult = List.of(new Vector2d(0, 0), new Vector2d(2,2));
+    List<Animal> animalsSingle = List.of(new Animal(new Vector2d(2,2)));
+    List<Animal> animalsMult = List.of(new Animal(new Vector2d(0, 0)), new Animal(new Vector2d(2,2)));
 
     @Test
     public void runSinglePos() {
-        Simulation sim = new Simulation(animalsSingle, moves, map);
+        Simulation<Animal, Vector2d> sim = new Simulation<Animal, Vector2d>(animalsSingle, moves, map);
 
         assertTrue(sim.move_next().isAt(new Vector2d(2, 3)));
         assertTrue(sim.move_next().isAt(new Vector2d(2, 4)));
@@ -34,7 +34,7 @@ public class SimulationTest {
 
     @Test
     public void runSingleDir() {
-        Simulation sim = new Simulation(animalsSingle, moves, map);
+        Simulation<Animal, Vector2d> sim = new Simulation<Animal, Vector2d>(animalsSingle, moves, map);
 
         assertTrue(sim.move_next().isFacing(MapDirection.NORTH));
         assertTrue(sim.move_next().isFacing(MapDirection.NORTH));
@@ -52,7 +52,7 @@ public class SimulationTest {
 
     @Test
     public void runMultiplePos() {
-        Simulation sim = new Simulation(animalsMult, moves, map);
+        Simulation<Animal, Vector2d> sim = new Simulation<Animal, Vector2d>(animalsMult, moves, map);
 
         assertTrue(sim.move_next().isAt(new Vector2d(0, 1)));
         assertTrue(sim.move_next().isAt(new Vector2d(2, 3)));
@@ -70,7 +70,7 @@ public class SimulationTest {
 
     @Test
     public void runMultipleDir() {
-        Simulation sim = new Simulation(animalsMult, moves, map);
+        Simulation<Animal, Vector2d> sim = new Simulation<Animal, Vector2d>(animalsMult, moves, map);
 
         assertTrue(sim.move_next().isFacing(MapDirection.NORTH));
         assertTrue(sim.move_next().isFacing(MapDirection.NORTH));

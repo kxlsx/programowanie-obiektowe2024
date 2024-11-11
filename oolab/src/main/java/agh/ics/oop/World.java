@@ -2,10 +2,7 @@ package agh.ics.oop;
 
 import java.util.List;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.RectangularMap;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
 public class World {
     public final static int WIDTH = 4;
@@ -13,8 +10,12 @@ public class World {
 
     public static void main(String[] args) {
         List<MoveDirection> directions = OptionsParser.parse(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions, new RectangularMap(WIDTH, HEIGHT));
+        List<Animal> positions = List.of(new Animal(new Vector2d(2,2)), new Animal(new Vector2d(3,4)));
+        Simulation<Animal, Vector2d> simulation = new Simulation<Animal, Vector2d>(positions, directions, new RectangularMap(WIDTH, HEIGHT));
         simulation.run();
+
+        List<String> texts = List.of("Ala", "ma", "sowoniedźwiedzia");
+        Simulation<String, Integer> simText = new Simulation<>(texts, directions, new TextMap());
+        simText.run();
     }
 }

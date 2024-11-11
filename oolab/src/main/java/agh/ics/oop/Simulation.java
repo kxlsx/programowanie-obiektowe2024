@@ -8,22 +8,19 @@ import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldMap;
 
-public class Simulation {
-    WorldMap map;
-    List<Animal> animals;
+public class Simulation<T, P> {
+    WorldMap<T, P> map;
+    List<T> objs;
     List<MoveDirection> moves;
     int moveIndex;
 
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap map) {
+    public Simulation(List<T> objs, List<MoveDirection> moves, WorldMap<T, P> map) {
         this.map = map;
         this.moves = moves;
+        this.objs = new ArrayList<>(objs);
 
-        animals = new ArrayList<Animal>();
-        for(Vector2d pos : positions) {
-            Animal a = new Animal(pos);
-            if(map.place(a)) {
-                animals.add(a);
-            }
+        for(T obj : this.objs) {
+            map.place(obj);
         }
         this.moveIndex = 0;
     }
@@ -39,23 +36,23 @@ public class Simulation {
         }
     }
 
-    public Animal move_next() {
+    public T move_next() {
         if(moveIndex == moves.size()){
             throw new IndexOutOfBoundsException("Simulation is out of moves");
         }
 
-        Animal a = animals.get(currentAnimalIndex());
+        T a = objs.get(currentObjIndex());
         map.move(a, moves.get(moveIndex));
         moveIndex++;
         return a;
     }
 
-    public int currentAnimalIndex() {
-        return moveIndex % animals.size();
+    public int currentObjIndex() {
+        return moveIndex % objs.size();
     }
 
-    public int previousAnimalIndex() {
-        return currentAnimalIndex() == 0 ? animals.size() - 1 : currentAnimalIndex() - 1;
+    public int previousObjIndex() {
+        return currentObjIndex() == 0 ? objs.size() - 1 : currentObjIndex() - 1;
     }
 
     public int currentMoveIndex() {
@@ -66,7 +63,7 @@ public class Simulation {
         return moves.size();
     }
 
-    public int totalAnimals() {
-        return animals.size();
+    public int totalObjs() {
+        return objs.size();
     }
 }
