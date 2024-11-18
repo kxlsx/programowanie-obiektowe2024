@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class OptionsParser {
-    public static List<MoveDirection> parse(String[] args) {
+    public static List<MoveDirection> parse(String[] args) throws IllegalArgumentException {
         List<MoveDirection> dirs = new ArrayList<MoveDirection>();
         for(String arg : args) {
             switch (arg) {
@@ -17,7 +17,8 @@ public class OptionsParser {
                 case "b": dirs.add(MoveDirection.BACKWARD); break;
                 case "l": dirs.add(MoveDirection.LEFT); break;
                 case "r": dirs.add(MoveDirection.RIGHT); break;
-                default: break;
+                default:
+                    throw new IllegalArgumentException(arg + "is not legal move specification.");
             };
         }
         return dirs;

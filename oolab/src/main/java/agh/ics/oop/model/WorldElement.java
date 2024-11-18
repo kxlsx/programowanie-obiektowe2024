@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
 public interface WorldElement {
-    public Vector2d getPos();
-    public boolean isAt(Vector2d pos);
+    Vector2d getPos();
+    boolean isAt(Vector2d pos);
 }
