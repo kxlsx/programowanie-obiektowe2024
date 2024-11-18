@@ -21,8 +21,9 @@ public class Simulation {
         animals = new ArrayList<Animal>();
         for(Vector2d pos : positions) {
             Animal a = new Animal(pos);
-            animals.add(a);
-            map.place(a);
+            if(map.place(a)) {
+                animals.add(a);
+            }
         }
         this.moveIndex = 0;
     }
