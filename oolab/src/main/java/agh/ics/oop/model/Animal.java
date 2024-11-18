@@ -3,8 +3,8 @@ package agh.ics.oop.model;
 import agh.ics.oop.World;
 
 public class Animal {
-    MapDirection facing = MapDirection.NORTH;
-    Vector2d pos = new Vector2d(2, 2);
+    private MapDirection facing = MapDirection.NORTH;
+    private Vector2d pos = new Vector2d(2, 2);
 
     public Animal(Vector2d pos) {
         this.pos = pos;
@@ -12,9 +12,22 @@ public class Animal {
 
     public Animal() {}
 
+    public Vector2d getPos() {
+        return pos;
+    }
+
+    public MapDirection getFacing() {
+        return facing;
+    }
+
     @Override
     public String toString() {
-        return "dir: " + facing + " x: " + pos.x() + ", y: " + pos.y();
+        return switch(facing) {
+            case NORTH -> "^";
+            case WEST -> "<";
+            case EAST -> ">";
+            case SOUTH -> "v";
+        };
     }
 
     public boolean isAt(Vector2d position) {
@@ -25,7 +38,7 @@ public class Animal {
         return facing == dir;
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator validator) {
         Vector2d by = new Vector2d(0, 0);
         switch (direction) {
             case FORWARD -> by = facing.toUnitVector();
@@ -35,8 +48,7 @@ public class Animal {
         }
 
         Vector2d newPos = pos.add(by);
-        if(newPos.upperRight(World.UPPER_RIGHT).equals(World.UPPER_RIGHT)
-        && newPos.lowerLeft(World.LOWER_LEFT).equals(World.LOWER_LEFT)) {
+        if(validator.canMoveTo(newPos)) {
             pos = newPos;
         }
     }
