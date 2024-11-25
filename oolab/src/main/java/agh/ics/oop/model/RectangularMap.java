@@ -9,13 +9,16 @@ public class RectangularMap extends AbstractWorldMap {
     public RectangularMap(int width, int height) {
         super();
 
-        lowerLeft = new Vector2d(0,0);
-        upperRight = new Vector2d(width, height);
+        bounds = new Boundary(
+                new Vector2d(0,0),
+                new Vector2d(width, height)
+        );
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return super.canMoveTo(position) && position.upperRight(upperRight).equals(upperRight)
-           && position.lowerLeft(lowerLeft).equals(lowerLeft);
+        return super.canMoveTo(position)
+                && position.upperRight(bounds.upperRight()).equals(bounds.upperRight())
+                && position.lowerLeft(bounds.lowerLeft()).equals(bounds.lowerLeft());
     }
 }

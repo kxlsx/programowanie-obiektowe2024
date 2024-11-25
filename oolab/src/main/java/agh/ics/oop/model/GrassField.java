@@ -1,6 +1,7 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.World;
+import agh.ics.oop.model.exception.IncorrectPositionException;
 import agh.ics.oop.model.util.MapVisualizer;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
@@ -24,15 +25,16 @@ public class GrassField extends AbstractWorldMap {
         RandomPositionGenerator generator = new RandomPositionGenerator(upperLimit, upperLimit, grassClumpCount, rnd);
         generator.forEach(v -> grassClumps.put(v, new Grass(v)));
 
-        lowerLeft = new Vector2d(0,0);
-        upperRight = new Vector2d(upperLimit, upperLimit);
+        bounds = new Boundary(
+                new Vector2d(0,0),
+                new Vector2d(upperLimit, upperLimit)
+        );
     }
 
     @Override
-    public boolean place(Animal animal){
-        boolean res = super.place(animal);
-        if(res) updateBounds(animal.getPos());
-        return res;
+    public void place(Animal animal) throws IncorrectPositionException {
+        super.place(animal);
+        updateBounds(animal.getPos());
     }
 
     @Override
@@ -64,6 +66,9 @@ public class GrassField extends AbstractWorldMap {
     }
 
     void updateBounds(Vector2d position) {
+        Vector2d upperRight = bounds.upperRight();
+        Vector2d lowerLeft = bounds.lowerLeft();
+
         if(position.getX() > upperRight.getX()) {
             upperRight = new Vector2d(position.getX(), upperRight.getY());
         } else if (position.getX() < lowerLeft.getX()) {
@@ -74,5 +79,7 @@ public class GrassField extends AbstractWorldMap {
         } else if (position.getY() < lowerLeft.getY()) {
             lowerLeft = new Vector2d(lowerLeft.getX(), position.getY());
         }
+
+        bounds = new Boundary(lowerLeft, upperRight);
     }
 }

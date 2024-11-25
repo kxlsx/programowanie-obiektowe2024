@@ -7,6 +7,7 @@ import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.exception.IncorrectPositionException;
 
 public class Simulation {
     WorldMap map;
@@ -21,9 +22,10 @@ public class Simulation {
         animals = new ArrayList<Animal>();
         for(Vector2d pos : positions) {
             Animal a = new Animal(pos);
-            if(map.place(a)) {
+            try  {
+                map.place(a);
                 animals.add(a);
-            }
+            } catch (IncorrectPositionException e) {  }
         }
         this.moveIndex = 0;
     }
@@ -32,7 +34,6 @@ public class Simulation {
         while(true) {
             try {
                 move_next();
-                System.out.println(map);
             } catch(IndexOutOfBoundsException e) {
                 break;
             }
