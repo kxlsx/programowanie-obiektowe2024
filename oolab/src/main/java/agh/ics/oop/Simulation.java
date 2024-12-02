@@ -9,7 +9,7 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.WorldMap;
 import agh.ics.oop.model.exception.IncorrectPositionException;
 
-public class Simulation {
+public class Simulation implements Runnable{
     WorldMap map;
     List<Animal> animals;
     List<MoveDirection> moves;

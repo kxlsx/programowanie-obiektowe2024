@@ -5,6 +5,7 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.exception.IncorrectPositionException;
 
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -48,4 +49,6 @@ public interface WorldMap extends MoveValidator {
     Collection<WorldElement> getElements();
 
     Boundary getCurrentBounds();
+
+    UUID getId();
 }

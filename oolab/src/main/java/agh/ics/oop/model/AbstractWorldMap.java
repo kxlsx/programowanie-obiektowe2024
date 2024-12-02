@@ -10,12 +10,19 @@ import java.util.stream.Collectors;
 public abstract class AbstractWorldMap implements WorldMap {
     protected Boundary bounds;
     protected Map<Vector2d, Animal> animals;
+    protected UUID uuid;
 
     private final List<MapChangeListener> observers;
 
     public AbstractWorldMap() {
         animals = new HashMap<>();
         observers = new LinkedList<>();
+
+        uuid = new UUID(this.hashCode(), new Date().getTime());
+    }
+
+    public UUID getId() {
+        return uuid;
     }
 
     public void addObserver(MapChangeListener observer) {
@@ -80,4 +87,5 @@ public abstract class AbstractWorldMap implements WorldMap {
     public Boundary getCurrentBounds() {
         return bounds;
     }
+
 }
