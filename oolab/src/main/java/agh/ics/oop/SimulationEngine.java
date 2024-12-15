@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,6 +14,11 @@ public class SimulationEngine {
     private final List<Thread> threads;
     private final ExecutorService threadPool;
 
+    public SimulationEngine() {
+        simulations = new ArrayList<>();
+        threads =  new ArrayList<>();
+        threadPool = Executors.newFixedThreadPool(THREAD_POOL_COUNT);
+    }
 
     public SimulationEngine(List<Simulation> simulations) {
         this.simulations = simulations;
@@ -20,12 +26,17 @@ public class SimulationEngine {
         threadPool = Executors.newFixedThreadPool(THREAD_POOL_COUNT);
     }
 
+    public void addSimulation(Simulation sim) {
+        simulations.add(sim);
+        threads.add(new Thread(sim));
+    }
+
     public void runSync() {
         simulations.forEach(Simulation::run);
     }
 
     public void runAsync() {
-        threads.forEach(Thread::start);
+        threads.forEach(thread -> {if(thread.getState() == Thread.State.NEW) {thread.start();}});
     }
 
     public void runAsyncInThreadPool() {
@@ -37,6 +48,8 @@ public class SimulationEngine {
         for(Thread thread : threads) {
             thread.join();
         }
-        threadPool.awaitTermination(10, TimeUnit.SECONDS);
+        if(!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
+            threadPool.shutdownNow();
+        }
     }
 }
