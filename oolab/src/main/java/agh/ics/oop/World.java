@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class World {
     public static void main(String[] args) {
         List<MoveDirection> directions;
         try {
-             directions = OptionsParser.parse(args);
+             directions = OptionsParser.parse(Arrays.stream(args).toList());
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             return;

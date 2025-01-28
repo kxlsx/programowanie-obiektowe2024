@@ -5,12 +5,13 @@ import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SimulationTest {
     WorldMap map = new RectangularMap(4, 4);
 
-    List<MoveDirection> moves = OptionsParser.parse(new String[]{"f", "f", "f", "r", "b", "l", "l", "l", "l"});
+    List<MoveDirection> moves = OptionsParser.parse(Arrays.stream(new String[]{"f", "f", "f", "r", "b", "l", "l", "l", "l"}).toList());
     List<Vector2d> animalsSingle = List.of(new Vector2d(2,2));
     List<Vector2d> animalsMult = List.of(new Vector2d(0, 0), new Vector2d(2,2), new Vector2d(2,2));
 

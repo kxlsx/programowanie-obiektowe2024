@@ -34,7 +34,8 @@ public class Simulation implements Runnable{
         while(true) {
             try {
                 move_next();
-            } catch(IndexOutOfBoundsException e) {
+                Thread.sleep(700);
+            } catch(IndexOutOfBoundsException | InterruptedException e) {
                 break;
             }
         }

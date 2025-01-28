@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OptionsParserTest {
@@ -20,7 +21,7 @@ public class OptionsParserTest {
 
     @Test
     public void parse() {
-        List<MoveDirection> resTest = OptionsParser.parse(args);
+        List<MoveDirection> resTest = OptionsParser.parse(Arrays.stream(args).toList());
         assertEquals(resTest.size(), res.length);
         for(int i = 0; i < res.length; i++) {
             assertEquals(resTest.get(i), res[i]);
@@ -31,7 +32,7 @@ public class OptionsParserTest {
     public void parse_incorrect() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> OptionsParser.parse(args_incorrect)
+                () -> OptionsParser.parse(Arrays.stream(args_incorrect).toList())
         );
     }
 

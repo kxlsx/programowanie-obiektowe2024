@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class OptionsParser {
-    public static List<MoveDirection> parse(String[] args) throws IllegalArgumentException {
+    public static List<MoveDirection> parse(List<String> args) throws IllegalArgumentException {
         List<MoveDirection> dirs = new ArrayList<MoveDirection>();
         for(String arg : args) {
             switch (arg) {
