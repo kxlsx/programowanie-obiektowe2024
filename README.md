@@ -1,4 +1,4 @@
-# projekt-programowanie-obiektowe2024
+# programowanie-obiektowe2024
 Repozytorium zawiera moje rozwiązania laboratoriów
 z Programowania Obiektowego na WI AGH 2024/2025
 
