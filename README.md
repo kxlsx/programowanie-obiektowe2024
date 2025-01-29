@@ -1,10 +1,16 @@
-i. Łukasz Dragon
+# projekt-programowanie-obiektowe2024
+Repozytorium zawiera moje rozwiązania laboratoriów
+z Programowania Obiektowego na WI AGH 2024/2025
 
-ii. gr: SP-pn-1645
+Wykonany przeze mnie projekt znajduje się w repozytorium [**programowanie-obiektowe-projekt2024**](https://github.com/kxlsx/programowanie-obiektowe-projekt2024).
 
-iii. =A2
+## Zadania
+Rozwiązania kolejnych laboratoriów znajdują się
+w odpowiadających im branchach. Wszystkie polecenia 
+można znaleźć w [tym](https://github.com/Soamid/obiektowe-lab/tree/master)
+repozytorium.
 
-iv. http://gitexercises.fracz.com/committer/a51afbbe394c5a9129f08725d3c13fb444d94ea0?email=ldragon@student.agh.edu.pl
-
-v. Segmentation fault (core dumped)
-
+## Sposób uruchomienia
+Repozytorium zawiera projekt IntelliJ IDEA używający Gradle'a, więc
+wystarczy otworzyć go w tym IDE. Wymagane jest przynajmniej JDK 23 i
+JavaFX 17.
